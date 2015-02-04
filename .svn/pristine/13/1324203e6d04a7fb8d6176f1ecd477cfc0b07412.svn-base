@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Web  BIS</title>   
+    <link href="css/WebBIS.css" rel="stylesheet" type="text/css"/>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="css/overridebootstrap.css" rel="stylesheet" type="text/css"/>
+    <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet"/>
+</head>   
+<body>
+            <div class="page-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h1> Inventory Systems</h1>
+                    </div>
+                    <div class="col-md-3">
+                        <div id="header-div" class="pull-right"> 
+                            <div>
+                                <span class="glyphicon glyphicon-user"></span>  
+                                <span id="username"> </span>
+                            </div>
+                            <div>
+                                <span class="glyphicon glyphicon-cog"></span> 
+                                <span id="userrole"> </span> 
+                            </div>                                
+                        <div>
+                            <span class="glyphicon glyphicon-off"></span> 
+                            Sign Out
+                            
+                        </div>
+                        </div>
+ 
+                    </div>
+                </div>
+            </div> 
+        </div>
+        
+      <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    
+                        <div id="sidebar" class="col-xs-6 col-sm-12 sidebar-offcanvas" role="navigation">
+                            <div class="list-group">
+                                <div id="clerk-navigation-div" >
+                                    <a id="product" class="list-group-item" href="#">Maintain Product</a>
+                                    <a id="inventory" class="list-group-item" href="#">Maintain Inventory Stock</a>
+                                    <a id="replenish" class="list-group-item" href="#">Replenish Stock</a>
+                                    <a id="transaction" class="list-group-item" href="#">Enquire Transaction History</a>                         
+                                </div>  
+                                <div id="mechanic-navigation-div">
+                                    <a id="stock" class="list-group-item" href="#">Stock</a>
+                                    <a id="mech-transaction" class="list-group-item" href="#">Enquire Transaction History</a>
+                                    <a id="usage-details" class="list-group-item" href="#">Usage Details</a>                                                           
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                <div class="col-md-8">
+                    <decorator:body />
+                </div>
+            </div>
+        </div>
+      </div>
+</body>
+</html>

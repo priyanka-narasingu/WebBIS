@@ -1,0 +1,135 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.gmail.sa38.team7.database;
+
+import com.gmail.sa38.team7.model.User;
+import com.gmail.sa38.team7.models.WebBISInventory;
+import com.gmail.sa38.team7.utils.WebBISConstants;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author A0120502E
+ */
+public class DatabaseManager {
+    // This is the class that will handle connection with database.
+
+    private Connection conn;
+    
+    public DatabaseManager() {
+        boolean connection = getConnection();
+        if (connection == false) {
+            System.out.println("Error, unable to get connection");
+        }
+    }
+    
+    
+    public List<WebBISInventory> getInventory() {
+        List<WebBISInventory> inventory = new ArrayList<WebBISInventory>();
+        if (getConnection()) {
+            try {
+                String selectSQL = "SELECT * FROM INVENTORY";
+                Statement stm = conn.createStatement();
+                ResultSet rs = stm.executeQuery(selectSQL);
+                while(rs.next()) {
+                    String partNum = rs.getString("partnumber");
+                    int quantity = rs.getInt("quantity");
+                    int reorderPoint = rs.getInt("reorderpoint");
+                    int minReorderQty = rs.getInt("minreorderqty");
+                    int orderAmount = rs.getInt("orderamount");
+                    String shelfLocation = rs.getString("shelflocation");
+                    int damagedItemsCount = rs.getInt("damageditemscount");
+                    WebBISInventory item = new WebBISInventory(partNum, quantity, reorderPoint, minReorderQty, orderAmount, shelfLocation, damagedItemsCount);
+                    inventory.add(item);
+                }
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            } finally {
+                try {
+                    conn.close();
+                } catch (SQLException sqle) {
+                    sqle.printStackTrace();
+                }
+            }
+        }
+        return inventory;
+    }
+    
+    
+    
+    
+    // Example
+    public User getCredentials(String name, String pwd) {        
+        if (getConnection()) {
+            try {
+                String selectSQL = "SELECT USERROLE, USERID FROM USER WHERE USERNAME='" + 
+                        name + "' AND USERPASSWORD='" + pwd + "'";
+                System.out.println(selectSQL);
+                Statement stm = conn.createStatement();
+                ResultSet rs = stm.executeQuery(selectSQL);
+                    User user = new User();
+                    user.setUsername(name);
+                    while(rs.next()){
+                        String role = rs.getString("USERROLE");
+                        user.setUserrole(role);
+                        user.setUserid(rs.getString("USERID"));
+                    }
+                    return user;
+//                }                
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+                return null;
+            } finally {
+                try {
+                    conn.close();
+                } catch (SQLException sqle) {
+                    sqle.printStackTrace();
+                }
+            }       
+        }
+        return null;
+    }        
+        
+
+    private boolean getConnection() {
+        try {
+            // load appropriate driver class
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception e) {
+            System.out.println("Failed to load JDBC driver.");
+        }
+        try {
+            
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException sqle) {
+                    sqle.printStackTrace();
+                    return false;
+                }
+            }            
+            // construct an appropriate URL string            
+            conn = DriverManager.getConnection(
+                    WebBISConstants.JDBC_URL, 
+                    WebBISConstants.JDBC_USER, 
+                    WebBISConstants.JDBC_PWD);           
+            System.out.println("Connected.");
+            return true;
+            // close connection
+        } catch (Exception e) {
+            // Handle exception
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+}//end DatabaseManager

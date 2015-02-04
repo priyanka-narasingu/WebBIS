@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< .mine
+        <group/>
+=======
+        <group>
+            <file>file:/F:/WebIS2/web/mechanic-enter-usage-detail.html</file>
+            <file>file:/F:/WebIS2/nbproject/build-impl.xml</file>
+            <file>file:/F:/WebIS2/src/java/com/gmail/sa38/team7/utils/WebBISConstants.java</file>
+            <file>file:/F:/WebIS2/src/java/com/gmail/sa38/team7/dao/InventoryDAO.java</file>
+            <file>file:/F:/WebIS2/web/clerk-maintain-inventory.jsp</file>
+            <file>file:/F:/WebIS2/src/java/com/gmail/sa38/team7/SearchPartNumberServlet.java</file>
+            <file>file:/F:/WebIS2/web/js/mechanic-enter-usage-detail.js</file>
+            <file>file:/F:/WebIS2/src/java/com/gmail/sa38/team7/dao/ProductDAO.java</file>
+            <file>file:/F:/WebIS2/src/java/com/gmail/sa38/team7/ReplenishStockServlet.java</file>
+        </group>
+>>>>>>> .r85
+    </open-files>
+</project-private>

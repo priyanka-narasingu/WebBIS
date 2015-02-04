@@ -1,0 +1,61 @@
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+$(function() {
+
+    $("#enquire-stock-btn").on("click", function() {
+
+        $.ajax({
+            url: "EnquireStockSummary",
+            type: "POST",
+            contentType: "text/plain; charset=utf-8",
+            dataType: "json",
+            success: function(data) {
+                stockSummary(data);
+            },
+            failure: function(errMsg) {
+                alert(errMsg);
+            }
+        });
+
+    });
+
+});
+
+
+function stockSummary(data) {
+    
+    //var info = JSON.stringify(data);
+    //$("#stock-table-div").text(info);
+    
+    var arrayOfHeaders = data["headers"];
+    var arrayOfInventories = data["inventories"];
+    //$("#stock-table-div").text(JSON.stringify(arrayOfInventories));
+    
+    
+    var $table = $("<table>");
+    var tr = $('<tr/>');
+    for (var i = 0; i < arrayOfHeaders.length; i++) {
+        tr.append("<th>" + arrayOfHeaders[i].header + "</th>");
+        $table.append(tr);
+    }   
+    document.getElementById("stock-table-div").innerHTML=""; //clears the previous table if any
+    $("#stock-table-div").append($($table));
+    
+    for (var i = 0; i < arrayOfInventories.length; i++) {
+        var tr = $('<tr/>');
+        tr.append("<td>" + arrayOfInventories[i].partnum + "</td>");
+        tr.append("<td>" + arrayOfInventories[i].description + "</td>");
+        tr.append("<td>" + arrayOfInventories[i].quantity + "</td>");
+        tr.append("<td>" + arrayOfInventories[i].reorder + "</td>");
+        tr.append("<td>" + arrayOfInventories[i].minreorder + "</td>");
+        tr.append("<td>" + arrayOfInventories[i].orderamt + "</td>");
+        tr.append("<td>" + arrayOfInventories[i].shelfloc + "</td>");
+        tr.append("<td>" + arrayOfInventories[i].damagecnt + "</td>");
+        $table.append(tr);
+    }
+}//end stockSummary

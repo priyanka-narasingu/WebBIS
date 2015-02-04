@@ -1,0 +1,53 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.gmail.sa38.team7.security;
+
+import com.gmail.sa38.team7.database.DatabaseManager;
+import com.gmail.sa38.team7.models.WebBISUser;
+import com.gmail.sa38.team7.utils.WebBISConstants;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ *
+ * @author angus
+ */
+public class Authenticator {
+    
+    private WebBISUser user;
+    
+    public Authenticator() {
+        super();
+    }
+    
+    public WebBISUser getUser() {
+        return user;
+    }
+    
+    public String checkCredentials(String name, String pwd) {                
+
+        
+        DatabaseManager dbmgr = new DatabaseManager();
+        user = dbmgr.getCredentials(name, pwd);
+        if (user == null) {
+           System.out.println("Help!"); 
+           return WebBISConstants.LOGIN_FAILED;
+        } else {
+            String role = user.getRole();
+            System.out.println(name + " is authenticated with role: " + role);
+            return role;
+        }
+//        String candidate = name.toLowerCase();
+//        String role = dummyDB.get(candidate);
+//        if (role == null)
+//            return WebBISConstants.LOGIN_FAILED;
+//        else
+//            return role;               
+    }
+    
+    
+}

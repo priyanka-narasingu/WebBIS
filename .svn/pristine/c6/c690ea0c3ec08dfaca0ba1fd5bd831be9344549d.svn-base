@@ -1,0 +1,150 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.gmail.sa38.team7;
+
+import com.gmail.sa38.team7.dao.ProductDAO;
+import com.gmail.sa38.team7.dao.ReplenishStockDAO;
+import com.gmail.sa38.team7.model.Inventory;
+import com.gmail.sa38.team7.utils.WebBISConstants;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+public class ReplenishStockServlet extends HttpServlet {
+
+    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ReplenishStockServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ReplenishStockServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+            
+    @EJB ReplenishStockDAO replenishStockDAO;
+    @EJB ProductDAO productDAO;
+    @PersistenceContext EntityManager em;
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {  
+                       
+        // Create a JSON Object to return to browser
+        try {  
+
+            
+            JsonObjectBuilder arrayObjectBuilder = Json.createObjectBuilder();
+            JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+            
+            for (int i = 0; i < WebBISConstants.REPLENISH_STOCK_HEADERS.length; i++) {
+                arrayBuilder.add(arrayObjectBuilder.add("header", WebBISConstants.REPLENISH_STOCK_HEADERS[i]));
+            } 
+            
+            JsonArray headersArray = arrayBuilder.build();
+
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();          
+
+            objectBuilder.add("headers", headersArray);   
+
+            List<Inventory> list=new ArrayList<Inventory>();
+
+            list = replenishStockDAO.getReplenishStock();
+ 
+            if(list.size()>0)
+            {
+            // Now we create an object of contents of products
+                JsonArrayBuilder inventoryArray = Json.createArrayBuilder();
+
+
+
+                for (Inventory i: list)
+                {
+                    JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+                    objBuilder.add("partnumber", i.getPartnumber());
+                    Double unitPrice = productDAO.getProductById(i.getPartnumber()).getUnitprice(); //new
+                    objBuilder.add("unitprice", unitPrice); //new
+                    objBuilder.add("quantity", i.getQuantity());
+                    objBuilder.add("reorderpoint", i.getReorderpoint());
+                    objBuilder.add("minreorderqty", i.getMinreorderqty());
+                    objBuilder.add("orderamount", (i.getReorderpoint() - i.getQuantity()) + i.getMinreorderqty() );
+                    objBuilder.add("price", unitPrice* i.getOrderamount() ); //new
+
+                    //objBuilder.add("shelflocation",i.getShelflocation()); // don't think we need this for this use case
+                    //objBuilder.add("damageditemscount",i.getDamageditemscount()); // don't think we need this for this use case
+
+                    JsonObject inventoryItem = objBuilder.build();
+                    inventoryArray.add(inventoryItem);
+                }
+
+                JsonArray inventoryArrayObj = inventoryArray.build();
+                objectBuilder.add("inventory", inventoryArrayObj);
+
+                JsonObject outputObject = objectBuilder.build();
+
+
+                  response.setStatus(HttpServletResponse.SC_OK);
+                  response.setContentType("application/json");
+                  response.setCharacterEncoding("UTF-8");
+                  PrintWriter writer = response.getWriter();
+                  String result = outputObject.toString();
+                  writer.write(result);
+                  writer.flush();
+            }
+            else
+            {
+                response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
+            }
+              
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            System.out.println(ioe.toString());
+        }     
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+        
+        Inventory i=new Inventory();
+        
+        i.setQuantity(Integer.parseInt(req.getParameter("qty")));
+        i.setPartnumber(req.getParameter("partNo"));
+        
+        if(replenishStockDAO.reorderStock(i))
+            resp.setStatus(HttpServletResponse.SC_OK);
+        else
+            resp.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
+        
+    }
+    
+    
+}// </editor-fold>
+
+

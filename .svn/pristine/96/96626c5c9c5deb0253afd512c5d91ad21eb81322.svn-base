@@ -1,0 +1,88 @@
+package com.gmail.sa38.team7;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+import com.gmail.sa38.team7.dao.InventoryDAO;
+import com.gmail.sa38.team7.dao.ProductDAO;
+import com.gmail.sa38.team7.model.Inventory;
+import com.gmail.sa38.team7.model.Product;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *
+ * @author Pinku
+ */
+@WebServlet(urlPatterns = {"/InventoryServlet"})
+public class InventoryServlet extends HttpServlet {
+
+    @EJB InventoryDAO inventoryDAO;
+    @EJB ProductDAO productDAO;
+   
+   
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	    throws ServletException, IOException {
+	
+    }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	    throws ServletException, IOException {
+	List<Inventory> mylist;
+	List<Product> productList;
+	String partNumber;
+	int damagedItemsCount;
+	int orderAmount;
+	String shelfLocation;
+	int quantity;
+	if(request.getParameter("search")!=null){
+	 
+	 String p=request.getParameter("pn");
+	  
+	   mylist=inventoryDAO.getInventoryData(p);
+	   productList=productDAO.getProductData(p);
+	  
+	   request.setAttribute("InvntList", mylist);
+	   request.setAttribute("prodList", productList);
+	}
+	else{
+	    partNumber=request.getParameter("txtpartnumber").trim();
+	    damagedItemsCount =Integer.parseInt(request.getParameter("txtdamageditemscount").trim());
+	    orderAmount=Integer.parseInt(request.getParameter("txtorderamount").trim());
+	    shelfLocation=request.getParameter("txtshelflocation").trim();
+	    quantity=Integer.parseInt(request.getParameter("txtquantity").trim());
+
+	inventoryDAO.updateInventory(partNumber,orderAmount,damagedItemsCount, shelfLocation, quantity);
+	mylist=inventoryDAO.getInventoryData(partNumber);
+	 productList=productDAO.getProductData(partNumber);
+	request.setAttribute("InvntList", mylist);
+	request.setAttribute("prodList", productList);
+	}
+	request.getRequestDispatcher("clerk-maintain-inventory.jsp").forward(request, response);
+        
+        //response.sendRedirect("/WebBIS/clerk-maintain-inventory.jsp");
+        //response.sendRedirect("clerk-maintain-inventory.jsp");
+        
+    }
+
+    @Override
+    public String getServletInfo() {
+	return "Short description";
+    }// </editor-fold>
+
+    private String String(Object attribute) {
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+}

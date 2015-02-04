@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings id="_14022925469851" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:ns4="http://nbmodeler.java.net" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <jpa:package>com.gmail.sa38.team7.model</jpa:package>
+    <jpa:entity class="Product" minimized="false" id="_14022925470004">
+        <jpa:table name="product"/>
+        <jpa:attributes>
+            <jpa:id name="partnumber" attribute-type="java.lang.String" id="_140229254700011">
+                <jpa:column name="partnumber" unique="false" nullable="false" insertable="true" updatable="true" table="product" length="50" precision="0" scale="0"/>
+                <jpa:generated-value/>
+            </jpa:id>
+            <jpa:basic name="description" optional="true" attribute-type="java.lang.String" id="_140229254700012">
+                <jpa:column name="description" unique="false" nullable="true" insertable="true" updatable="true" table="product" length="50" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="unitprice" optional="false" attribute-type="double" id="_140229254700013">
+                <jpa:column name="unitprice" unique="false" nullable="false" insertable="true" updatable="true" table="product" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:many-to-one name="manufacturerid" target-entity="Manufacturer" optional="false" primaryKey="false" connected-entity-id="_14022925470008" connected-attribute-id="_140229254700042" id="_140229254700014">
+                <jpa:join-column name="manufacturerid" referenced-column-name="manufacturerid" unique="false" nullable="true" insertable="true" updatable="true"/>
+                <jpa:join-table/>
+            </jpa:many-to-one>
+            <jpa:one-to-one name="inventory" target-entity="Inventory" optional="true" mapped-by="product" primaryKey="false" connected-entity-id="_14022925470007" connected-attribute-id="_140229254700039" id="_140229254700015">
+                <jpa:join-table/>
+            </jpa:one-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="AuthenticationTable" minimized="false" id="_14022925470005">
+        <jpa:table name="authentication_table"/>
+        <jpa:attributes>
+            <jpa:id name="userid" attribute-type="java.lang.Integer" id="_140229254700016">
+                <jpa:column name="userid" unique="false" nullable="false" insertable="true" updatable="true" table="authentication_table" length="255" precision="0" scale="0"/>
+            </jpa:id>
+            <jpa:basic name="username" optional="true" attribute-type="java.lang.String" id="_140229254700017">
+                <jpa:column name="username" unique="false" nullable="true" insertable="true" updatable="true" table="authentication_table" length="45" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="userrole" optional="true" attribute-type="java.lang.String" id="_140229254700018">
+                <jpa:column name="userrole" unique="false" nullable="true" insertable="true" updatable="true" table="authentication_table" length="45" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="userpassword" optional="true" attribute-type="java.lang.String" id="_140229254700019">
+                <jpa:column name="userpassword" unique="false" nullable="true" insertable="true" updatable="true" table="authentication_table" length="45" precision="0" scale="0"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Transaction" minimized="false" id="_14022925470006">
+        <jpa:table name="transaction"/>
+        <jpa:attributes>
+            <jpa:id name="transactionnumber" attribute-type="java.lang.Integer" id="_140229254700020">
+                <jpa:column name="transactionnumber" unique="false" nullable="false" insertable="true" updatable="true" table="transaction" length="255" precision="0" scale="0"/>
+                <jpa:generated-value strategy="IDENTITY"/>
+            </jpa:id>
+            <jpa:basic name="transactiondate" optional="false" attribute-type="java.util.Date" id="_140229254700021">
+                <jpa:column name="transactiondate" unique="false" nullable="false" insertable="true" updatable="true" table="transaction" length="255" precision="0" scale="0"/>
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="partnumber" optional="false" attribute-type="java.lang.String" id="_140229254700022">
+                <jpa:column name="partnumber" unique="false" nullable="false" insertable="true" updatable="true" table="transaction" length="50" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="unitprice" optional="true" attribute-type="java.lang.Double" id="_140229254700023">
+                <jpa:column name="unitprice" unique="false" nullable="true" insertable="true" updatable="true" table="transaction" length="255" precision="22" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="sellingprice" optional="true" attribute-type="java.lang.Double" id="_140229254700024">
+                <jpa:column name="sellingprice" unique="false" nullable="true" insertable="true" updatable="true" table="transaction" length="255" precision="22" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="quantity" optional="false" attribute-type="int" id="_140229254700025">
+                <jpa:column name="quantity" unique="false" nullable="false" insertable="true" updatable="true" table="transaction" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="totalprice" optional="true" attribute-type="java.lang.Double" id="_140229254700026">
+                <jpa:column name="totalprice" unique="false" nullable="true" insertable="true" updatable="true" table="transaction" length="255" precision="22" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="manufacturerconsumerid" optional="false" attribute-type="java.lang.String" id="_140229254700027">
+                <jpa:column name="manufacturerconsumerid" unique="false" nullable="false" insertable="true" updatable="true" table="transaction" length="50" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="inoutflag" optional="false" attribute-type="int" id="_140229254700028">
+                <jpa:column name="inoutflag" unique="false" nullable="false" insertable="true" updatable="true" table="transaction" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="manufacturerflag" optional="false" attribute-type="int" id="_140229254700029">
+                <jpa:column name="manufacturerflag" unique="false" nullable="false" insertable="true" updatable="true" table="transaction" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="damageditemflag" optional="false" attribute-type="int" id="_140229254700030">
+                <jpa:column name="damageditemflag" unique="false" nullable="false" insertable="true" updatable="true" table="transaction" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:many-to-one name="userid" target-entity="User" optional="false" primaryKey="false" connected-entity-id="_140229254700010" connected-attribute-id="_140229254700049" id="_140229254700031">
+                <jpa:join-column name="userid" referenced-column-name="userid" unique="false" nullable="true" insertable="true" updatable="true"/>
+                <jpa:join-table/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Inventory" minimized="false" id="_14022925470007">
+        <jpa:table name="inventory"/>
+        <jpa:attributes>
+            <jpa:id name="partnumber" attribute-type="java.lang.String" id="_140229254700032">
+                <jpa:column name="partnumber" unique="false" nullable="false" insertable="true" updatable="true" table="inventory" length="50" precision="0" scale="0"/>
+            </jpa:id>
+            <jpa:basic name="quantity" optional="false" attribute-type="int" id="_140229254700033">
+                <jpa:column name="quantity" unique="false" nullable="false" insertable="true" updatable="true" table="inventory" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="reorderpoint" optional="false" attribute-type="int" id="_140229254700034">
+                <jpa:column name="reorderpoint" unique="false" nullable="false" insertable="true" updatable="true" table="inventory" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="minreorderqty" optional="false" attribute-type="int" id="_140229254700035">
+                <jpa:column name="minreorderqty" unique="false" nullable="false" insertable="true" updatable="true" table="inventory" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="orderamount" optional="false" attribute-type="int" id="_140229254700036">
+                <jpa:column name="orderamount" unique="false" nullable="false" insertable="true" updatable="true" table="inventory" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="shelflocation" optional="true" attribute-type="java.lang.String" id="_140229254700037">
+                <jpa:column name="shelflocation" unique="false" nullable="true" insertable="true" updatable="true" table="inventory" length="50" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="damageditemscount" optional="true" attribute-type="java.lang.Integer" id="_140229254700038">
+                <jpa:column name="damageditemscount" unique="false" nullable="true" insertable="true" updatable="true" table="inventory" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:one-to-one name="product" target-entity="Product" optional="false" primaryKey="false" connected-entity-id="_14022925470004" connected-attribute-id="_140229254700015" id="_140229254700039">
+                <jpa:join-column name="partnumber" referenced-column-name="partnumber" unique="false" nullable="true" insertable="false" updatable="false"/>
+                <jpa:join-table/>
+            </jpa:one-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Manufacturer" minimized="false" id="_14022925470008">
+        <jpa:table name="manufacturer"/>
+        <jpa:attributes>
+            <jpa:id name="manufacturerid" attribute-type="java.lang.String" id="_140229254700040">
+                <jpa:column name="manufacturerid" unique="false" nullable="false" insertable="true" updatable="true" table="manufacturer" length="50" precision="0" scale="0"/>
+                <jpa:generated-value/>
+            </jpa:id>
+            <jpa:basic name="manufacturername" optional="false" attribute-type="java.lang.String" id="_140229254700041">
+                <jpa:column name="manufacturername" unique="false" nullable="false" insertable="true" updatable="true" table="manufacturer" length="50" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:one-to-many name="productCollection" target-entity="Product" mapped-by="manufacturerid" collection-type="java.util.Collection" connected-entity-id="_14022925470004" connected-attribute-id="_140229254700014" id="_140229254700042">
+                <jpa:join-table/>
+            </jpa:one-to-many>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Customer" minimized="false" id="_14022925470009">
+        <jpa:table name="customer"/>
+        <jpa:attributes>
+            <jpa:id name="customerid" attribute-type="java.lang.String" id="_140229254700043">
+                <jpa:column name="customerid" unique="false" nullable="false" insertable="true" updatable="true" table="customer" length="50" precision="0" scale="0"/>
+            </jpa:id>
+            <jpa:basic name="customername" optional="false" attribute-type="java.lang.String" id="_140229254700044">
+                <jpa:column name="customername" unique="false" nullable="false" insertable="true" updatable="true" table="customer" length="50" precision="0" scale="0"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="User" minimized="false" id="_140229254700010">
+        <jpa:table name="user"/>
+        <jpa:attributes>
+            <jpa:id name="userid" attribute-type="java.lang.String" id="_140229254700045">
+                <jpa:column name="userid" unique="false" nullable="false" insertable="true" updatable="true" table="user" length="50" precision="0" scale="0"/>
+            </jpa:id>
+            <jpa:basic name="username" optional="false" attribute-type="java.lang.String" id="_140229254700046">
+                <jpa:column name="username" unique="false" nullable="false" insertable="true" updatable="true" table="user" length="50" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="userrole" optional="false" attribute-type="java.lang.String" id="_140229254700047">
+                <jpa:column name="userrole" unique="false" nullable="false" insertable="true" updatable="true" table="user" length="50" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="userpassword" optional="false" attribute-type="java.lang.String" id="_140229254700048">
+                <jpa:column name="userpassword" unique="false" nullable="false" insertable="true" updatable="true" table="user" length="50" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:one-to-many name="transactionCollection" target-entity="Transaction" mapped-by="userid" collection-type="java.util.Collection" connected-entity-id="_14022925470006" connected-attribute-id="_140229254700031" id="_140229254700049">
+                <jpa:join-table/>
+            </jpa:one-to-many>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:diagram id="_14022925469852">
+        <plane elementRef="_14022925469851" id="_14022925470003_p">
+            <shape elementRef="_14022925470004" id="_14022925470004_gui">
+                <Bounds x="104.0" y="32.0" width="141.0" height="168.0"/>
+            </shape>
+            <shape elementRef="_14022925470005" id="_14022925470005_gui">
+                <Bounds x="301.0" y="433.0" width="209.0" height="134.0"/>
+            </shape>
+            <shape elementRef="_14022925470006" id="_14022925470006_gui">
+                <Bounds x="600.0" y="32.0" width="189.0" height="315.0"/>
+            </shape>
+            <shape elementRef="_14022925470007" id="_14022925470007_gui">
+                <Bounds x="2.0" y="243.0" width="164.0" height="231.0"/>
+            </shape>
+            <shape elementRef="_14022925470008" id="_14022925470008_gui">
+                <Bounds x="287.0" y="243.0" width="173.0" height="126.0"/>
+            </shape>
+            <shape elementRef="_14022925470009" id="_14022925470009_gui">
+                <Bounds x="74.0" y="549.0" width="152.0" height="92.0"/>
+            </shape>
+            <shape elementRef="_140229254700010" id="_140229254700010_gui">
+                <Bounds x="363.0" y="32.0" width="173.0" height="168.0"/>
+            </shape>
+        </plane>
+    </jpa:diagram>
+</jpa:entity-mappings>

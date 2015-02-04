@@ -1,0 +1,56 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 2, 2014, 2:47:48 PM
+    Author     : A0120502E
+*/
+/*
+ul
+{
+    list-style-type: none;
+}
+#clerk-navigation-div, #mechanic-navigation-div, #work-frame {
+    border: 1px solid white;
+    float: left;
+    min-height: 450px;
+    color: white;
+}
+
+
+
+#work-frame {    
+     width: 750px;
+     height: 100%;
+     background-color: #777;  
+}
+*/
+
+.allowscroll {
+    overflow: auto;
+    height:300px;
+}
+
+.tt-suggestion {
+    padding: 3px 20px;
+    font-size: 16px;
+    line-height: 20px;
+    overflow-y: auto;
+}
+
+.tt-dropdown-menu {
+    width: 400px;
+    margin-top: 12px;
+    padding: 8px 0;
+    background-color: white;
+    border: 1px grey;    
+    border-radius: 8px;
+    box-shadow: 0 5px 10px grey;
+}
+
+.tt-cursor{
+    color: white;
+    background-color: green;
+}

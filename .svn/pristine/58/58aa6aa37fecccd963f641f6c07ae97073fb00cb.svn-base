@@ -1,0 +1,144 @@
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+$(function() {
+    
+    $("#searchBtn").click(function(event) {
+        event.preventDefault();        
+        searchInventory();
+    });    
+    
+    
+    $('#update-btn').click(function(event) {
+        event.preventDefault();        
+        update();
+        searchInventory();
+    });
+    
+});
+
+
+function update() {
+    
+    var updateObject = new Object();
+    updateObject.functionality = 'updateInventory';
+    
+    updateObject.partNumber = $('#part-num-id').val().trim();
+    updateObject.txtpartnumber = $('#part-num-id').val().trim();
+    var orderAmt = $('#oa-id').val();
+    updateObject.txtorderamount = orderAmt.trim();
+    updateObject.txtreorderpt=$('#rp-id').val().trim();
+    updateObject.txtminorderqty=$('#mo-id').val().trim();
+    updateObject.txtshelflocation = $('#sl-id').val().trim();
+    updateObject.txtdamageditemscount = $('#dm-id').val().trim();
+    updateObject.txtquantity = $('#qty-id').val().trim();
+
+    $.ajax({
+        url:"InventoryServlet",
+        type: "POST",
+        data : JSON.stringify(updateObject),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data){            
+            updateSuccessful(data);
+        },
+        failure: function(errMsg) {
+            alert(errMsg);
+        }
+    });
+    
+
+}
+
+function updateSuccessful(data) {
+    var updateStatus = data["results"];
+    alert("Update " + updateStatus);
+    // Then we clear data
+}
+
+function searchInventory() {
+    
+    var searchObject = new Object();    
+    searchObject.functionality = 'searchPartNum';
+    searchObject.partNumber = $("#searchPartNumber").val();        
+    
+    $.ajax({
+        url:"InventoryServlet",
+        type: "POST",
+        data : JSON.stringify(searchObject),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data){
+            populateInventoryTable(data);
+        },
+        failure: function(errMsg) {
+            alert(errMsg);
+        }
+    });
+    
+    
+    
+    
+
+}
+
+function populateInventoryTable(data) {
+    var array = data["results"];
+    $("#inventory-table tr.item-row").remove(); // Clear any previous rows
+    $.each(array, function(key, datum) {
+                
+        // Store part number in hidden field
+        $('#part-num-id').val(datum["PN"]);
+        
+        var tr = $('<tr>');
+        tr.addClass("item-row");
+        
+        
+        var pn_td = $('<td>');
+        pn_td.append(datum["PN"]);
+        tr.append(pn_td);
+        
+        var desc_td = $('<td>');
+        desc_td.append(datum["DESC"]);
+        tr.append(desc_td);
+
+        var qty_td = $('<td>');
+        qty_td.append(datum["QTY"]);
+        tr.append(qty_td);
+
+        var oa_td = $('<td>');
+        oa_td.append(datum["OA"]);
+        tr.append(oa_td);
+        
+        var rp_td = $('<td>');
+        rp_td.append(datum["RP"]);
+        tr.append(rp_td);
+
+        var mo_td = $('<td>');
+        mo_td.append(datum["MO"]);
+        tr.append(mo_td);
+        
+        var sl_td = $('<td>');
+        sl_td.append(datum["SL"]);
+        tr.append(sl_td);
+
+        var dm_td = $('<td>');
+        dm_td.append(datum["DM"]);
+        tr.append(dm_td);                
+        $('#inventory-table').append(tr);        
+        
+        $('#qty-id').val(datum["QTY"]);
+        $('#oa-id').val(datum['OA']);
+        $('#rp-id').val(datum["RP"]);
+        $('#mo-id').val(datum["MO"]);
+        $('#sl-id').val(datum['SL']);
+        $('#dm-id').val(datum['DM']);        
+    });
+    
+    
+    
+}

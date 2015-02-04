@@ -1,0 +1,158 @@
+package com.gmail.sa38.team7;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+import com.gmail.sa38.team7.dao.InventoryDAO;
+import com.gmail.sa38.team7.dao.ProductDAO;
+import com.gmail.sa38.team7.model.Inventory;
+import com.gmail.sa38.team7.model.Product;
+import com.gmail.sa38.team7.utils.WebBISConstants;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *
+ * @author Pinku
+ */
+@WebServlet(urlPatterns = {"/InventoryServlet"})
+public class InventoryServlet extends HttpServlet {
+
+    @EJB
+    InventoryDAO inventoryDAO;
+    @EJB
+    ProductDAO productDAO;
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        List<Inventory> mylist;
+        List<Product> productList;
+        String partNumber;
+        int damagedItemsCount;
+        int orderAmount;
+        int reorderPoint;
+        int minorderQuantity;
+        String shelfLocation;
+        int quantity;
+
+        JsonReader jsonReader = Json.createReader(new InputStreamReader(request.getInputStream()));
+        JsonObject object = jsonReader.readObject();
+        jsonReader.close();
+
+        String functionality = object.getString("functionality");
+        String partNum = object.getString("partNumber");
+
+        productList = productDAO.getProductData(partNum);
+        if (functionality.equalsIgnoreCase("searchPartNum")) {            
+            mylist = inventoryDAO.getInventoryData(partNum);            
+            JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+
+            for (int i = 0; i < mylist.size(); i++) {
+                JsonObjectBuilder arrayObjectBuilder = Json.createObjectBuilder();
+                Inventory inv = mylist.get(i);                
+                if (inv != null) {
+                    Product prod = inv.getProduct();
+                    String desc = "";
+                    if (prod != null)
+                        desc = prod.getDescription();
+                    String qty = Integer.toString(inv.getQuantity());
+                    String reorderPt=Integer.toString(inv.getReorderpoint());
+                    String minorderQty=Integer.toString(inv.getMinreorderqty());
+                    String orderAmt = Integer.toString(inv.getOrderamount());
+                    String shelfLoc =(inv.getShelflocation());
+                    String damaged = Integer.toString(inv.getDamageditemscount());
+                    
+                    arrayObjectBuilder.add("PN", partNum);
+                    arrayObjectBuilder.add("DESC", desc);
+                    arrayObjectBuilder.add("QTY", qty);
+                    arrayObjectBuilder.add("RP",reorderPt);
+                    arrayObjectBuilder.add("MO",minorderQty);        
+                    arrayObjectBuilder.add("OA", orderAmt);
+                    arrayObjectBuilder.add("SL", shelfLoc);
+                    arrayObjectBuilder.add("DM", damaged);
+                    arrayBuilder.add(arrayObjectBuilder);
+                }
+            }
+
+            JsonArray resultsArray = arrayBuilder.build();
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("results", resultsArray);
+            JsonObject outObject = objectBuilder.build();
+
+            try {
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                PrintWriter writer = response.getWriter();
+                String result = outObject.toString();
+                writer.write(result);
+                writer.flush();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+
+        } else {
+
+            partNumber = object.getString("partNumber");
+            String damaged = object.getString("txtdamageditemscount").trim();
+            damagedItemsCount = Integer.parseInt(object.getString("txtdamageditemscount").trim());
+            orderAmount = Integer.parseInt(object.getString("txtorderamount").trim());
+            //reorderPt=Integer.parseInt(object.getString("txtreorderpt").trim());
+            //minorderQty=Integer.parseInt(object.getString("txtminorderqty").trim());
+            
+            shelfLocation = object.getString("txtshelflocation").trim();
+            quantity = Integer.parseInt(object.getString("txtquantity").trim());
+            inventoryDAO.updateInventory(partNumber, orderAmount,damagedItemsCount, shelfLocation, quantity);
+            
+            try {
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                PrintWriter writer = response.getWriter();
+                
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                objectBuilder.add("results", "successful");
+                JsonObject outObject = objectBuilder.build();                
+                String result = outObject.toString();
+                writer.write(result);
+                writer.flush();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+    private String String(Object attribute) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+}

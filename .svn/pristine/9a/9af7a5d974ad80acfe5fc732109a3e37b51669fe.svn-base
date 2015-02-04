@@ -1,0 +1,56 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.gmail.sa38.team7.dao;
+
+import com.gmail.sa38.team7.model.Inventory;
+import com.gmail.sa38.team7.model.Product;
+import com.sun.xml.rpc.processor.modeler.j2ee.xml.string;
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ *
+ * @author Pinku
+ */
+@Stateless
+public class InventoryDAO {
+@PersistenceContext EntityManager em;
+ List<Inventory> list;
+public List<Inventory> getInventoryData(String s)
+{
+    Query q=em.createQuery("SELECT i FROM Inventory i WHERE i.partnumber=:pn").setParameter("pn", s);
+    list=q.getResultList();
+    return list;
+}
+public void setNewInventory(Inventory invt)
+{
+    em.persist(invt);
+    
+}
+public void updateInventory(String p, int amount, int d, String shelfLocation, int quantity)
+{   
+    Inventory obj=em.find(Inventory.class, p);
+    if(d!=list.get(0).getDamageditemscount())
+    {
+	obj.setQuantity(quantity-d);    
+    }
+    else
+    {
+	obj.setQuantity(quantity);    
+    }
+    obj.setOrderamount(amount);
+    obj.setDamageditemscount(d+list.get(0).getDamageditemscount());
+    obj.setShelflocation(shelfLocation);
+    
+    em.merge(obj);
+}
+
+
+}

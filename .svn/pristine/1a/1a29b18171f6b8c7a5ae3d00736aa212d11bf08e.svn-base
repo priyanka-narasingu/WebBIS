@@ -1,0 +1,100 @@
+    <%-- 
+    Document   : InventoryDisplay
+    Created on : Jun 11, 2014, 12:18:09 AM
+    Author     : Pinku
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Inventory</title>
+	<link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>
+	<link rel="stylesheet" href="css/bootstrap-theme.css" type="text/css">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+	<script>
+	    function done()
+	    {
+		alert("Updated successfully");
+	    }
+	</script>
+        <script src="js/main.js"></script>
+      
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+    </head>
+    <body>
+ 	
+     
+	<div class="container-fluid">
+  <div class="container">
+	 <div class="row">
+                <div class="col-xs-12 col-lg-12">
+                    <h2>Inventory Details</h2>
+<form action="InventoryServlet" method="POST" role="search">
+   <div class="col-sm-3">
+    <input type="text" class="form-control" name="pn" placeholder="Part Number" autofocus="">
+   </div>
+    <div class="col-xs-3">
+	<button class="btn btn-default" type="submit" name="search">Search</button>
+    </div>
+		 
+    <table class="table table-hover table-striped">
+                        <caption><code>Inventory Details</code></caption>
+                        <thead>
+                            <tr>
+                                <th>Part Number</th>
+				<th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Order Amount</th>
+				<th>Shelf Location</th>
+				<th>No Of Damaged Items</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="i" items="${InvntList}">
+				   <tr>
+				       <td><div>${i.partnumber}</div></td>
+				       <c:forEach var="p" items="${prodList}">
+					<td><div>${p.description}</div></td></c:forEach>
+				       <td><div>${i.quantity}</div></td>
+				       <td><div>${i.orderamount}</div></td>
+				       <td><div>${i.shelflocation}</div></td>
+				       <td><div>${i.damageditemscount}</div></td>
+				   </tr>
+			 </c:forEach>
+                                       
+	                               
+                        </tbody>
+                    </table>       
+    <c:forEach var="i" items="${InvntList}">
+	    <div class="col-sm-3">
+		<label>Quantity</label>
+		<input class="form-control" type="text" name="txtquantity" value="${i.quantity}">
+		<Span><label>Order Amount</label>
+		    <input class="form-control" type="text" name="txtorderamount" value="${i.orderamount}">
+		</Span></div>
+		<div class="col-sm-3">
+		    <label>Shelf Location</label>
+		    <input class="form-control" type="text" name="txtshelflocation" value="${i.shelflocation}">
+		    <span>
+			<label>No Of Damaged Goods</label>
+		    <input class="form-control" type="text" name="txtdamageditemscount"></span></div>
+		    <input class="form-control" type="hidden" name="txtpartnumber" value="${i.partnumber}">
+	</c:forEach>			   
+		    <div></div>
+	 <div class="col-lg-10">
+	<button class="btn btn-default" type="submit" name="update" onclick="done()">Update</button>
+	 </div>
+	
+		   
+</form>         
+		</div>
+	    </div>
+  </div>
+    </body>
+
+</html>

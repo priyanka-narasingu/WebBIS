@@ -1,0 +1,67 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 11, 2014, 9:50:59 AM
+    Author     : monaung
+*/
+
+
+
+.headercolor {
+    
+    background-color: #D8D8D8;
+}
+
+.form-control:focus{
+   border-color:   #00868b;
+}
+
+.header-bar
+{
+
+    background-color: #F2F2F2;
+    height: 130px;
+    
+}
+
+.header-nav{
+    
+    float:right;
+    position: relative;
+}
+
+.nav-ul{
+    margin:0;
+    list-style: disc;
+}
+
+nav>ul>li
+{
+    float:left;
+    list-style-type: none;
+    margin: 0 0 0 40px;
+    line-height: 24px;
+    
+}
+
+.page-header {
+    border-bottom: 2px solid #00868b;
+}
+
+a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.active:focus {
+   background-color: #00868b;
+    border-color: #00868b;
+    color: #FFFFFF;
+    z-index: 2;
+}
+
+
+.list-group-item {
+
+    padding:15px 15px;
+}
+
+ 

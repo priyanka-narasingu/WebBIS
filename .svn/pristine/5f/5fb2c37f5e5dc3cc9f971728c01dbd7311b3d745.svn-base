@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<decorators>
+    <excludes>
+        <pattern>/index.html</pattern>
+    </excludes>
+    <decorator name="simple" page="/WEB-INF/decorators/basic-theme.jsp">
+        <pattern>*</pattern>
+    </decorator>
+    
+</decorators>

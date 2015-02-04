@@ -1,0 +1,130 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.gmail.sa38.team7.dao;
+
+import com.gmail.sa38.team7.database.DatabaseManager;
+import com.gmail.sa38.team7.model.Product;
+import com.gmail.sa38.team7.model.Transaction;
+import com.gmail.sa38.team7.model.User;
+//import com.gmail.sa38.team7.models.WebBISUser;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.persistence.Query;
+
+/**
+ *
+ * @author Pinku
+ */
+@Stateless
+public class TransactionDAO {
+
+   @PersistenceContext
+    EntityManager em;
+    //User u= new User();
+    
+    
+    public void setTransactionDetails(String partNumber, String quantity, String custID,String unitPrice, User user)
+    {
+	try {
+	//int pN=Integer.parseInt(partNumber);
+	Product product=em.find(Product.class, partNumber);
+	double qty=Double.parseDouble(quantity);
+	double up=Double.parseDouble(unitPrice);
+	double tp= up*qty;
+                    
+	Transaction transaction =new Transaction();
+	transaction.setDamageditemflag(0);
+	transaction.setInoutflag(0);
+	transaction.setManufacturerflag(0);
+	transaction.setManufacturerconsumerid(custID);
+	transaction.setPartnumber(partNumber);
+	transaction.setQuantity(Integer.parseInt(quantity));
+	transaction.setSellingprice(null);
+	transaction.setTotalprice(tp);
+	transaction.setTransactiondate(new Date());
+	transaction.setUnitprice(up);
+	transaction.setUserid(user);
+	em.persist(transaction);
+	
+        } catch(PersistenceException pe){
+            System.out.println(pe.toString());
+        }        	
+
+    }
+    
+    public List<Transaction> getTransaction(){
+        
+        
+        Query q = em.createQuery("Select t from Transaction t");
+        List<Transaction> transactionList = (List<Transaction>) q.getResultList();
+        
+        return transactionList;
+        
+    }
+        
+     public List getTransactionByPartNumber(User user, String partnumber, String startDate, String endDate) {
+
+         
+         
+         
+         
+         String [] starts = startDate.split("/"); // 06, 03, 2014
+         String sMth = starts[0]; 
+         int startMth =Integer.parseInt(sMth) - 1;
+                  
+         String sDay = starts[1];
+         int startDay =Integer.parseInt(sDay);
+         String sYear = starts[2];
+         int startYear =Integer.parseInt(sYear);
+//         String newStart = starts[2] + "-" + starts[1] + "-" + starts[0] + " 08:00:00";
+         String [] ends=endDate.split("/");
+         String eMth = ends[0]; 
+         int endMth =Integer.parseInt(eMth) - 1;
+         String eDay = ends[1];
+         int endDay =Integer.parseInt(eDay);
+         String eYear = ends[2];
+         int endYear =Integer.parseInt(eYear);
+         
+         
+//         String newEnds=ends[2]+"-"+ends[1]+"-"+ends[0] + " 08:00:00";
+         
+        Calendar c1 = Calendar.getInstance();
+        c1.set(startYear, startMth, startDay, 0, 0, 0);  //January 30th 2000
+        Date sDate = c1.getTime();
+
+        Calendar c2 = Calendar.getInstance();
+        c2.set(endYear, endMth, endDay, 0, 0, 0);  //January 30th 2000
+        Date eDate = c2.getTime();
+
+//        Query q = em.createQuery("SELECT T FROM Transaction T WHERE " + 
+//                "T.partnumber= :pnum")              
+//                .setParameter("pnum", partnumber);
+        
+//        Query q = em.createQuery("SELECT T FROM Transaction T WHERE T.transactiondate BETWEEN :starting AND :ending")
+//                .setParameter("ending", eDate)
+//                .setParameter("starting", sDate);
+        
+        DatabaseManager mgr = new DatabaseManager();
+        List<Transaction> result = mgr.getTransactions(user, partnumber, sDate, eDate);
+
+//        List result = q.getResultList();
+
+        if (result.isEmpty()) {
+            return null;
+        } else {
+            return result;
+        }
+    }
+}
+    
+    
+    

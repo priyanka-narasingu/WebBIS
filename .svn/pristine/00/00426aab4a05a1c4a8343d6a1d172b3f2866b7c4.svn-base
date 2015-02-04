@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Maintain Product Details</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" type="text/css" href="bootstrap-3.1.1-dist/css/bootstrap.css"/>
+        <link rel="stylesheet" type="text/css" href="css/WebBIS.css"/>
+                
+        <script language="javascript" type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script language="javascript" type="text/javascript" src="bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
+    </head>
+    
+
+<!--        Shifted this script to body to cater to sitemesh-->
+    <script language="javascript" type="text/javascript" src="js/clerk-maintain-product.js"></script>
+    <script language="javascript" type="text/javascript" src="libs/typeahead.js"></script>
+    <script language="javascript" type="text/javascript" src="libs/handlebars-v1.3.0.js"></script>    
+    <script id="suggestionTemplate" type="text/x-handlebars">
+        {{ searchname }}
+    </script>    
+    <script type="text/javascript" src="libs/pagination.js"></script>    
+        
+    
+     <div>   
+        <p class="text-warning">Note: at least 4 characters for Product ID and Manufacturer ID</p>
+       
+    
+        <div class="editDiv"> 
+            <a href="#top"></a>
+            <div class='row'>           
+                <div class="col-sm-2">
+                    Part#
+                </div>
+                
+                <div class='col-sm-6'>
+                    Description
+                </div>
+                
+                <div class="col-sm-2">
+                    Mfr ID 
+                </div>
+                
+                <div class='col-sm-2'>
+                    Price
+                </div>
+            </div>
+            
+            <div class='row'>
+                <div class="col-sm-2">
+                    <input type="text" class='form-control' id="editpartnumber" placeholder="Part #"/>
+                </div>
+                
+                <div class='col-sm-6'>
+                    <input type="text" class='form-control' id="editdescription" placeholder="Description"/>
+                </div>
+                
+                <div class="col-sm-2">
+                    <input type="text" class='form-control' id="editmanufacturerid" placeholder="Manufactuer ID" />
+                </div>
+                
+                <div class='col-sm-2'>
+                    <input type="text" class='form-control' id="editunitprice" placeholder="Unit Price" />  
+                </div>
+            </div>
+      
+            <div class="btn pull-right" >
+                <button id="addProductBtn" class="btn btn-default">Add</button>
+                <button id="editProductBtn" class="btn btn-success">Save</button>  
+                <button id="delProductBtn" class="btn btn-danger">Delete</button> 
+                <button id="clearBtn" class="btn btn-info">Clear</button>    
+            </div>
+            <br/><br/> <hr/>        
+        </div>
+    </div>  
+       
+        
+        
+          
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <input type="radio" id="search_product" value="p" name="searchby" checked="checked"/> Product
+                </div>
+                <div class="col-sm-3">
+                    <input type="radio" id="search_manufacturer" value="m" name="searchby"/> Manufacturer
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                
+                    <input type="text" class="form-control" id="search" placeholder="Search"/>
+                </div>
+                <div class="col-sm-4">
+                        <button id="searchBtn"  class="btn btn-default">
+                            <span class="glyphicon glyphicon-search"></span>
+                        Search
+                        </button>    
+                        <button id="refreshBtn" class="btn btn-default">                      
+                            <span class="glyphicon glyphicon-refresh"></span>
+                            Refresh
+                        </button>                  
+                </div>
+            </div>
+            <br />
+            <div id="productDiv" class="allowscroll">
+                
+                Listing here
+            
+            </div>
+        
+        
+
+        
+            <script type="text/javascript">
+            $(function(){
+                $("#product").addClass("active");
+            });
+        </script>
+    
+</html>

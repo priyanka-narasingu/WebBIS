@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Clerk replenish stock</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script language="javascript" type="text/javascript" src="js/clerk-replenish-stock.js"></script>
+        <div><h3>Clerk replenish stock</h3></div>
+        
+        <div>
+            
+            Search by Product <input type="radio" id="search_product" value="p" name="searchby" checked="checked"/>
+            <!--: Search by Manufacturer <input type="radio" id="search_manufacturer" value="m" name="searchby"/> -->
+                
+                
+            <input type="text" id="search"/>
+                
+            <button id="searchBtn">Go</button>    
+            <button id="refreshBtn">Refresh</button>
+            <hr/>
+        </div>
+        
+        <div id="replenishDiv" class="allowscroll">Listing here</div>
+        <script type="text/javascript">
+            $(function(){
+                
+                $("#replenish").addClass("active");
+            });
+        </script>
+    </body>
+</html>

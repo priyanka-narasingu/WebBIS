@@ -1,0 +1,45 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 15, 2014, 12:25:53 PM
+    Author     : monaung
+*/
+.modal-dialog{
+    
+    width:450px;
+    margin:75px auto;
+}
+
+.modal-header{
+    
+    border-bottom: 2px solid #00868b;
+}
+.btn-default{
+    background-image: none; 
+    background-color: #00868b;
+    color:#FFFFFF;
+        
+}
+
+.btn-default:hover{
+    background-image: none; 
+    background-color: #04B4AE;
+    color:#FFFFFF
+}
+
+.btn-default[disabled]{
+    background-image: none; 
+    background-color: #00868b;
+    color:#FFFFFF;
+        
+}
+
+.btn-lg, .btn-group-lg > .btn {
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.33;
+    padding: 10px 25px;
+}

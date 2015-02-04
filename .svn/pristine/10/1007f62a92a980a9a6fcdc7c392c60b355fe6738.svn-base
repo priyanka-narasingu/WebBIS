@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Mechanic Enter Usage Detail</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>Mechanic Enter Usage Detail</div>
+        
+            <script src="js/mechanic-enter-usage-detail.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                //alert('hell0');
+                $("#usage-details").addClass("active");
+            });
+        </script>
+	<div class="container col-sm-3">
+         
+	    
+        <div>
+	    
+            <label>Part Number</label>
+	    <span>
+            <input class="form-control" type="text" id="part-num-id" />
+	    <span>  <button class="btn btn-default" id="search-btn">Search</button></span>
+	    </span>
+	</div>
+	
+	    <div>
+        <div >
+            <label>Customer ID</label>
+            <input class="form-control" type="text" id="customer-id" />            
+        </div>
+      </div>
+	<div>
+	    <label>Quantity</label>: <input class="form-control" type="text" name="txtQty" id="qty-id"/>
+        </div>
+
+	<div>
+            <label>Unit Price:</label>
+	    <input class="form-control" id="unit-price-id" readonly>
+ 
+        </div>
+	<div>
+	    
+	    <label>Total Price:</label>
+	    <input class="form-control" id="total-price-id" readonly>
+            <button class="btn btn-default" id="update-usage-btn">Save</button>
+
+        </div>
+</div>
+    </body>
+</html>

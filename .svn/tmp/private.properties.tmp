@@ -1,0 +1,26 @@
+<<<<<<< .mine
+deploy.ant.properties.file=C:\\Users\\a0122213a\\AppData\\Roaming\\NetBeans\\8.0\\config\\GlassFishEE6\\Properties\\gfv3-1094286755.properties
+=======
+deploy.ant.properties.file=C:\\Users\\AUNGHTUT\\AppData\\Roaming\\NetBeans\\8.0\\config\\GlassFishEE6\\Properties\\gfv3-1692876171.properties
+>>>>>>> .r85
+j2ee.platform.is.jsr109=true
+<<<<<<< .mine
+j2ee.server.domain=C:/Users/a0122213a/GlassFish_Server/glassfish/domains/domain
+j2ee.server.home=C:/Users/a0122213a/GlassFish_Server/glassfish
+j2ee.server.instance=[C:\\Users\\a0122213a\\GlassFish_Server\\glassfish;C:\\Users\\a0122213a\\GlassFish_Server\\glassfish\\domains\\domain]deployer:gfv3ee6wc:localhost:45512
+j2ee.server.middleware=C:/Users/a0122213a/GlassFish_Server
+=======
+j2ee.server.domain=C:/Users/AUNGHTUT/AppData/Roaming/NetBeans/8.0/config/GF_4.0/domain1
+j2ee.server.home=C:/Program Files/glassfish-4.0/glassfish
+j2ee.server.instance=[C:\\Program Files\\glassfish-4.0\\glassfish;C:\\Program Files\\glassfish-4.0\\glassfish\\domains\\domain1]deployer:gfv3ee6:localhost:4848
+j2ee.server.middleware=C:/Program Files/glassfish-4.0
+>>>>>>> .r85
+javac.debug=true
+javadoc.preview=true
+<<<<<<< .mine
+selected.browser=Chrome.INTEGRATED
+user.properties.file=C:\\Users\\a0122213a\\AppData\\Roaming\\NetBeans\\8.0\\build.properties
+=======
+selected.browser=SL[/Browsers/IExplorerBrowser
+user.properties.file=C:\\Users\\AUNGHTUT\\AppData\\Roaming\\NetBeans\\8.0\\build.properties
+>>>>>>> .r85

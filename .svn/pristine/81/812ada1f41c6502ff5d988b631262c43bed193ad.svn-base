@@ -1,0 +1,10 @@
+deploy.ant.properties.file=C:\\Users\\a0120502e\\AppData\\Roaming\\NetBeans\\8.0\\config\\GlassFishEE6\\Properties\\gfv3-385889073.properties
+j2ee.platform.is.jsr109=true
+j2ee.server.domain=C:/Users/a0120502e/GlassFish_Server/glassfish/domains/glassfish
+j2ee.server.home=C:/Users/a0120502e/GlassFish_Server/glassfish
+j2ee.server.instance=[C:\\Users\\a0120502e\\GlassFish_Server\\glassfish;C:\\Users\\a0120502e\\GlassFish_Server\\glassfish\\domains\\glassfish]deployer:gfv3ee6wc:localhost:4848
+j2ee.server.middleware=C:/Users/a0120502e/GlassFish_Server
+javac.debug=true
+javadoc.preview=true
+selected.browser=Chrome.INTEGRATED
+user.properties.file=C:\\Users\\a0120502e\\AppData\\Roaming\\NetBeans\\8.0\\build.properties

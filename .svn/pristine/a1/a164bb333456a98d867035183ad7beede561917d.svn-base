@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>WebBIS Main Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      
+        
+    </head>
+    <body>
+        <!--
+        <div>
+            <h1>WebBIS Main Page</h1>
+        
+            <div id="header-div">               
+                <ul>
+                        <li>User:<span id="username"></span></li>
+                        <li>Role:<span id="userrole"></span></li>                                
+                </ul>                
+            </div>
+            
+            <div id="navigation-div">
+                <div id="clerk-navigation-div">
+                    <ul id="clerk-navigation-ul">
+                        <li><a id="product" class="navigator">Maintain Product</a></li>
+                        <li><a id="inventory" class="navigator">Maintain Inventory Stock</a></li>
+                        <li><a id="replenish" class="navigator">Replenish Stock</a></li>
+                        <li><a id="transaction" class="navigator">Enquire Transaction History</a></li>
+                    </ul>
+                </div>
+                <div id="mechanic-navigation-div">
+                    <ul id="mechanic-navigation-ul">
+                        <li><a id="stock" class="navigator">Stock</a></li>
+                        <li><a id="mech-transaction" class="navigator">Enquire Transaction History</a></li>
+                        <li><a id="usage-details" class="navigator">Usage Details</a></li>                        
+                    </ul>
+                </div>
+                
+                
+            </div>       
+            
+            
+            <iframe id="work-frame"></iframe>            
+        </div>
+        -->
+    </body>
+</html>

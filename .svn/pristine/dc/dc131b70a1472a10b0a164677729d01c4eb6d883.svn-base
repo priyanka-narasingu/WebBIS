@@ -1,0 +1,64 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.gmail.sa38.team7.dao;
+
+import com.gmail.sa38.team7.model.Customer;
+import com.gmail.sa38.team7.model.Product;
+import com.gmail.sa38.team7.model.Transaction;
+import com.gmail.sa38.team7.model.User;
+import java.util.Date;
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+
+/**
+ *
+ * @author Pinku
+ */
+@Stateless
+public class TransactionDAO {
+
+   @PersistenceContext
+    EntityManager em;
+    //User u= new User();
+    
+    
+    public void setTransactionDetails(String partNumber, String quantity, String custID,String unitPrice)
+    {
+	try {
+	int pN=Integer.parseInt(partNumber);
+	Product product=em.find(Product.class, pN);
+	double qty=Double.parseDouble(quantity);
+	double up=Double.parseDouble(unitPrice);
+	double tp= up*qty;
+	
+	User u = em.find(User.class, "S0002");
+	Transaction transaction =new Transaction();
+	transaction.setDamageditemflag(0);
+	transaction.setInoutflag(0);
+	transaction.setManufacturerflag(0);
+	transaction.setManufacturerconsumerid(product.getManufacturerid().getManufacturerid());
+	transaction.setPartnumber(partNumber);
+	transaction.setQuantity(Integer.parseInt(quantity));
+	transaction.setSellingprice(null);
+	transaction.setTotalprice(tp);
+	transaction.setTransactiondate(new Date());
+	transaction.setUnitprice(up);
+	transaction.setUserid(u);
+	em.persist(transaction);
+	
+        } catch(PersistenceException pe){
+            System.out.println(pe.toString());
+        }        	
+
+    }
+}
+    
+    
+    

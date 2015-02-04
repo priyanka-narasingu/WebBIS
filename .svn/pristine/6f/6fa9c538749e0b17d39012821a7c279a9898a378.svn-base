@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Clerk Enquire Transaction</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
+        <link rel="stylesheet" type="text/css" href="bootstrap-3.1.1-dist/css/bootstrap.css"/>
+        <link rel="stylesheet" type="text/css" href="css/WebBIS.css"/>
+
+        <script language="javascript" type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<!--        <script language="javascript" type="text/javascript" src="libs/jquery-ui-1.10.40.custom.js"></script> -->
+        <script language="javascript" type="text/javascript" src="js/albert-ui.js"></script>
+
+        <script language="javascript" type="text/javascript" src="bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <h1>Clerk Enquire Transaction</h1>
+         <script language="javascript" type="text/javascript" src="js/clerk-transaction-enquire.js"></script>
+   
+       
+    
+       <div class="row">
+                
+           <div> 
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.css"/>
+        <script language="javascript" type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script language="javascript" type="text/javascript" src="js/albert-ui.js"></script>
+
+            <!--
+            <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+            <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+            -->
+
+               
+               <input class="form-inline" id="searchbydate" placeholder="SearchByDate" >
+ </div>
+            
+                <div>
+                
+                    <input type="text" class="form-inline" id="search" placeholder="Search By PartNumber"/>
+                </div> 
+            </div>
+    <div>
+        
+        
+        
+         <div class="col-sm-4">
+                        <button id="searchBtn"  class="btn btn-default">
+                            <span class="glyphicon glyphicon-search"></span>
+                        Search
+                        </button> 
+              <button id="refreshBtn" class="btn btn-default">                      
+                            <span class="glyphicon glyphicon-refresh"></span>
+                            Refresh
+                        </button>    
+         </div>
+         
+                
+                
+            
+            
+           
+    </div>
+         <div id="transactionDV" class="allowscroll"></div>
+         
+         
+        <!-- 
+        <script type="text/javascript">
+            $(function(){
+                //alert('hell0');
+                $("#transaction").addClass("active");
+            });
+    
+        </script>
+        <script type="text/javascript">        
+            $(function() {
+                $( "#searchbydate" ).datePicker({clickInput:true});
+    
+            });
+        </script>
+        -->
+    </body>
+    
+    
+    
+</html>

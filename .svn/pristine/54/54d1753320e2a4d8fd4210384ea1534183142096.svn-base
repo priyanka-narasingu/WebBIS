@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="DEFAULT_PU" transaction-type="JTA">
+    <jta-data-source>jdbc/webbis</jta-data-source>
+    <class>com.gmail.sa38.team7.model.Product</class>
+    <class>com.gmail.sa38.team7.model.AuthenticationTable</class>
+    <class>com.gmail.sa38.team7.model.Transaction</class>
+    <class>com.gmail.sa38.team7.model.Inventory</class>
+    <class>com.gmail.sa38.team7.model.Manufacturer</class>
+    <class>com.gmail.sa38.team7.model.Customer</class>
+    <class>com.gmail.sa38.team7.model.User</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+    </properties>
+  </persistence-unit>
+</persistence>

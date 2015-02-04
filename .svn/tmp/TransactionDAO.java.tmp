@@ -1,0 +1,90 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.gmail.sa38.team7.dao;
+
+import com.gmail.sa38.team7.model.Customer;
+import com.gmail.sa38.team7.model.Product;
+import com.gmail.sa38.team7.model.Transaction;
+import com.gmail.sa38.team7.model.User;
+//import com.gmail.sa38.team7.models.WebBISUser;
+import com.gmail.sa38.team7.utils.WebBISConstants;
+import java.util.Date;
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpSession;
+import javax.persistence.Query;
+
+/**
+ *
+ * @author Pinku
+ */
+@Stateless
+public class TransactionDAO {
+
+   @PersistenceContext
+    EntityManager em;
+    //User u= new User();
+    
+    
+    public void setTransactionDetails(String partNumber, String quantity, String custID,String unitPrice, User user)
+    {
+	try {
+	//int pN=Integer.parseInt(partNumber);
+	Product product=em.find(Product.class, partNumber);
+	double qty=Double.parseDouble(quantity);
+	double up=Double.parseDouble(unitPrice);
+	double tp= up*qty;
+                    
+	Transaction transaction =new Transaction();
+	transaction.setDamageditemflag(0);
+	transaction.setInoutflag(0);
+	transaction.setManufacturerflag(0);
+	transaction.setManufacturerconsumerid(custID);
+	transaction.setPartnumber(partNumber);
+	transaction.setQuantity(Integer.parseInt(quantity));
+	transaction.setSellingprice(null);
+	transaction.setTotalprice(tp);
+	transaction.setTransactiondate(new Date());
+	transaction.setUnitprice(up);
+	transaction.setUserid(user);
+	em.persist(transaction);
+	
+        } catch(PersistenceException pe){
+            System.out.println(pe.toString());
+        }        	
+
+    }
+    
+    public List<Transaction> getTransaction(){
+        
+        
+        Query q = em.createQuery("Select t from Transaction t");
+        List<Transaction> transactionList = (List<Transaction>) q.getResultList();
+        
+        return transactionList;
+        
+    }
+     public List getTransactionByPartNumber(String partnumber) {
+
+        Query q = em.createQuery("SELECT T FROM Transaction WHERE T.partnumber =:partnumber")
+                .setParameter("partnumber", partnumber);
+
+        List result = q.getResultList();
+
+        if (result.isEmpty()) {
+            return null;
+        } else {
+            return result;
+        }
+    }
+}
+    
+    
+    

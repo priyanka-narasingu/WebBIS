@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Maintain Product Details</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" type="text/css" href="bootstrap-3.1.1-dist/css/bootstrap.css"/>
+        <link rel="stylesheet" type="text/css" href="css/WebBIS.css"/>
+                
+        <script language="javascript" type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script language="javascript" type="text/javascript" src="bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+
+         <div>Clerk Maintain Product Details</div><hr/>
+
+<!--        Shifted this script to body to cater to sitemesh-->
+        <script language="javascript" type="text/javascript" src="js/clerk-maintain-product.js"></script>
+        <div>Clerk Maintain Product Details</div><hr/>
+        Note: at least 4 characters for Product ID and Manufacturer ID
+        
+        <div class="addDiv"> 
+<!--            Part Number <input type="text" id="partnumber" size="5"/>
+            Description <input type="text" id="description" size="18"/>
+            Mfr ID <input type="text" id="manufacturerid" size="5"/>
+            Unit Price <input type="text" id="unitprice" size="5"/>
+            
+            <button id="addProductBtn">Add</button>
+            <hr/>-->
+            
+        </div>
+        
+        <div class="editDiv"> 
+            <a href="#top"></a>
+            Part Number <input type="text" id="editpartnumber" size="5"/>
+            Description <input type="text" id="editdescription" size="18"/>
+            Mfr ID <input type="text" id="editmanufacturerid" size="5"/>
+            Unit Price $<input type="text" id="editunitprice" size="5"/>            
+            
+            <div class="btn" style="float:right;">
+                <button id="addProductBtn">Add</button>
+                <button id="editProductBtn">Save</button>  
+                <button id="delProductBtn">Delete</button> 
+                <button id="clearBtn">Clear</button>    
+            </div>
+            
+            <br/>
+            <br/> 
+            <hr/>
+            
+        </div>
+        
+        <div>
+            
+<!--            Search by: -->
+<!--            <select id="search-field">
+                  <option value="volvo">Volvo</option>
+                  <option value="saab">Saab</option>
+                  <option value="mercedes">Mercedes</option>
+                  <option value="audi">Audi</option>
+            </select>-->
+            
+            Search by Product <input type="radio" id="search_product" value="p" name="searchby" checked="checked"/>
+            : Search by Manufacturer <input type="radio" id="search_manufacturer" value="m" name="searchby"/>
+                
+                
+                <input type="text" id="search"/>
+                
+            <button id="searchBtn">Go</button>    
+            <button id="refreshBtn">Refresh</button>
+            <hr/>
+        
+        </div>
+        
+        <div id="productDiv" class="allowscroll">Listing here</div>
+        
+            <script type="text/javascript">
+            $(function(){
+                $("#product").addClass("active");
+            });
+        </script>
+    </body>
+</html>
